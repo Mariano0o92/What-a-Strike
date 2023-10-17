@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/dist/css/main-min.css">
+    <link rel="stylesheet" href="/dist/css/hamburger-min.css">
+<link rel="stylesheet" href="/dist/css/main-min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Numans&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/1daff9524d.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
 
-    <div class="hero-img">
+    <header class="hero-img">
     <img src="/dist/img/football_field_large.jpg" alt="football field">
     <div class="hero-img__info">
         <h1>what-a-strike</h1>
@@ -20,21 +22,48 @@
     </div>
     <p class="hero-img__api-info">Powered by www.api-football.com</p>
     <div class="hero-img__shadow"></div>
+</header>
+    <nav class="nav">
+
+    <a href="#english" class="nav__links">Premier League</a>
+    <a href="#spanish" class="nav__links">La Liga</a>
+    <a href="#german" class="nav__links">Bundesliga</a>
+    <a href="#italian" class="nav__links">Serie A</a>
+    <a href="#french" class="nav__links">Ligue 1</a>
+
+</nav>
+
+<nav class="nav-mobile">
+    
+    <button class="hamburger hamburger--collapse" type="button">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
+
+<div class="nav-mobile__title">
+    <h2><i class="fa-regular fa-star-half"></i>what-a-strike<i class="fa-regular fa-star-half fa-flip-horizontal"></i></h2>
 </div>
+
+      <div class="nav-mobile__links">
+
+          <a href="#english" class="nav-mobile__link">Premier League</a>
+          <a href="#spanish" class="nav-mobile__link">La Liga</a>
+          <a href="#german" class="nav-mobile__link">Bundesliga</a>
+          <a href="#italian" class="nav-mobile__link">Serie A</a>
+          <a href="#french" class="nav-mobile__link">Ligue 1</a>
+          
+      </div>
+
+</nav>
 
 
     <section class="main">
-    <nav class="nav">
-    <a href="#english">Premier League</a>
-    <a href="#spanish">La Liga</a>
-    <a href="#german">Bundesliga</a>
-    <a href="#italian">Serie A</a>
-    <a href="#french">Ligue 1</a>
-    </nav>
+    
 
 
 </section>
-    
+
 
 
     <script src="/dist/js/script-min.js"></script>
