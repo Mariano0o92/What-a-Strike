@@ -8,6 +8,16 @@ const hideHero = () => {
 
 setTimeout(hideHero, 5000)
 
+// NAVIGATION
+
+const hamburger = document.querySelector('.hamburger')
+const mobileLinks = document.querySelector('.nav-mobile__links')
+hamburger.addEventListener('click', () => {
+	hamburger.classList.toggle('is-active')
+	
+	mobileLinks.classList.toggle('nav-mobile__links--active')
+})
+
 
 // MAIN SECTION
 function getData() {
