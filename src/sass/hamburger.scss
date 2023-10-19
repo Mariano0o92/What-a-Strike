@@ -6,14 +6,14 @@
  * @link https://github.com/jonsuh/hamburgers
  */
  .hamburger {
-     padding: 15px 15px;
+     padding: 5px 5px;
      display: inline-block;
      cursor: pointer;
      transition-property: opacity, filter;
      transition-duration: 0.15s;
      transition-timing-function: linear;
      font: inherit;
-     height: 100%;
+    //  height: 100%;
      color: inherit;
      text-transform: none;
      background-color: transparent;

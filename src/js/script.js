@@ -1,4 +1,3 @@
-
 // HERO IMAGE
 const heroImg = document.querySelector('.hero-img')
 
@@ -14,27 +13,40 @@ const hamburger = document.querySelector('.hamburger')
 const mobileLinks = document.querySelector('.nav-mobile__links')
 hamburger.addEventListener('click', () => {
 	hamburger.classList.toggle('is-active')
-	
+
 	mobileLinks.classList.toggle('nav-mobile__links--active')
 })
 
-
 // MAIN SECTION
-function getData() {
-	fetch("https://v3.football.api-sports.io/leagues", {
-		"method": "GET",
-		"headers": {
-			"x-rapidapi-host": "v3.football.api-sports.io",
-			"x-rapidapi-key": "5909e88e3467b12f2fe26cdc167d9662"
-		}
+
+const navLinks = document.querySelectorAll('.nav__link')
+let leagues = ['PL', 'PD', 'BL1', 'SA', 'FL1']
+
+leagues.forEach(id => {
+	getData(id)
+});
+
+function getData(id) {
+	const URL_API = 'https://api.football-data.org/v4/competitions/'
+	const leagueID = `${id}`
+
+
+	fetch(URL_API + leagueID, {
+		method: 'GET',
+		headers: {
+			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
+			'Accept-Encoding': ''
+		},
 	})
-	.then(response => {
-		console.log(response);
-	})
-	.catch(err => {
-		console.log(err);
-	});
+		.then(res => res.json())
+		.then(data => {
+			console.log(data)
+			const scores = document.querySelector('.scores')
+			const logo = data.emblem
+			scores.style.backgroundImage = `url(${logo})`
+			console.log(logo);
+		})
+		.catch(err => {
+			console.log(err)
+		})
 }
-
-getData()
-
