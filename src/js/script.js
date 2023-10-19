@@ -17,16 +17,17 @@ hamburger.addEventListener('click', () => {
 	mobileLinks.classList.toggle('nav-mobile__links--active')
 })
 
-// MAIN SECTION
+// API DATA
 
 const navLinks = document.querySelectorAll('.nav__link')
 let leagues = ['PL', 'PD', 'BL1', 'SA', 'FL1']
 
-leagues.forEach(id => {
-	getData(id)
+leagues.forEach((id, index) => {
+	getData(id, index)
+
 });
 
-function getData(id) {
+function getData(id, pageIndex) {
 	const URL_API = 'https://api.football-data.org/v4/competitions/'
 	const leagueID = `${id}`
 
@@ -40,13 +41,21 @@ function getData(id) {
 	})
 		.then(res => res.json())
 		.then(data => {
-			console.log(data)
-			const scores = document.querySelector('.scores')
-			const logo = data.emblem
-			scores.style.backgroundImage = `url(${logo})`
-			console.log(logo);
+			createScores(data, pageIndex)
+			console.log(data);
 		})
 		.catch(err => {
 			console.log(err)
 		})
-}
+	}
+
+
+	const createScores = (league, pageIndex) => {
+		const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
+		const scores = document.getElementById(sectionID).querySelector('.scores')
+			const logo = league.emblem
+			scores.style.backgroundImage = `url(${logo})`
+			console.log(logo);
+		
+		
+};
