@@ -15,7 +15,7 @@ body {
 	font-family: 'Numans', sans-serif;
 	font-size: 1.6rem;
 	background-color: #fff;
-	// overflow: hidden;
+	overflow: hidden;
 }
 
 // FIRST SCREEN
@@ -123,8 +123,8 @@ body {
 		transition: transform 0.3s ease;
 
 		&--active {
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 			z-index: 10;
+			text-decoration: underline;
 		}
 	}
 	&__link:hover {
@@ -279,7 +279,7 @@ body {
 .main {
 	position: relative;
 	margin: 0 auto;
-	display: flex;
+	display: none;
 	justify-content: center;
 	height: 80vh;
 	width: 100vw;
@@ -306,6 +306,10 @@ body {
 		font-size: 2rem;
 		border-radius: 12px;
 		background-color: rgba(51, 51, 51, 0.3);
+		// background-image: url('https://crests.football-data.org/PD.png');
+		background-size: 250px 250px;
+		background-position: left 5px top 5px;
+		background-repeat: no-repeat;
 		color: #2e4f4f;
 
 		&__container {
@@ -338,10 +342,94 @@ body {
 	}
 }
 
+.table table{
+	margin: 30px auto;
+	border-collapse: collapse;
+}
+
+.table{
+	display: none;
+	margin: 0px 0% 30px 0%;
+}
+
+th, td {
+    padding: 10px;
+}
+
+th{
+	background-color: black;
+	color: #ffe221;
+}
+
+.headin{
+	text-align: center;
+	text-decoration: none;
+	color: #ffe221;
+	margin: 30px;
+	display: block;
+}
+
+.wpos{
+	text-align: center;
+}
+
+.wpos td{
+	color: #77ff21;
+}
+
+.pos{
+	text-align: center;
+}
+
+.pos td{
+	color: #ff7b21;
+}
+
+table .col{
+	border-bottom: 1px solid #FFFFFF;
+}
+
+.wpos:hover{
+	background-color: #77ff21;
+}
+
+.wpos:hover td{
+	color: #000000;
+}
+
+.pos:hover{
+	background-color: #ff7b21;
+}
+
+.pos:hover td{
+	color: #000000;
+}
+.main_english,
+.table[data-section='english'] {
+    display: flex;
+}
+.main_spanish,
+.table[data-section='spanish'] {
+    display: flex;
+}
+.main_german,
+.table[data-section='german'] {
+    display: flex;
+}
+.main_italian,
+.table[data-section='italian'] {
+    display: flex;
+}
+.main_french,
+.table[data-section='french'] {
+    display: flex;
+}
+
 // MEDIA
 
 @media (max-width: 576px) {
 	.nav-mobile__title {
+		margin: 0 auto;
 		font-size: 1.3rem;
 	}
 
