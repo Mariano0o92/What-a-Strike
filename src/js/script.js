@@ -1,8 +1,8 @@
 // ALL DATA
 const heroImg = document.querySelector('.hero-img')
 const hamburger = document.querySelector('.hamburger')
+const nav = document.querySelector(".nav");
 const mobileLinks = document.querySelector('.nav-mobile__links')
-
 const navLinks = document.querySelectorAll('.nav__link')
 const navResults = document.querySelectorAll('.nav__results');
 const navTable = document.querySelectorAll('.nav__table');
@@ -25,92 +25,48 @@ hamburger.addEventListener('click', () => {
 	mobileLinks.classList.toggle('nav-mobile__links--active')
 })
 
+  // Add click event listeners to .nav__link elements
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      // Remove previously added divs (if any)
+      const existingResultsDiv = nav.querySelector(".nav__results");
+      const existingTableDiv = nav.querySelector(".nav__table");
+      if (existingResultsDiv) {
+        existingResultsDiv.remove();
+      }
+      if (existingTableDiv) {
+        existingTableDiv.remove();
+      }
+
+      // Create Results and Table links for the clicked .nav__link
+      const linkText = link.textContent;
+      const linkHref = link.getAttribute("href");
+
+      const resultsLink = document.createElement("a");
+      resultsLink.href = linkHref;
+      resultsLink.textContent = "Results";
+
+      const tableLink = document.createElement("a");
+      tableLink.href = linkHref + "-table";
+      tableLink.textContent = "Table";
+
+      const resultsDiv = document.createElement("div");
+      resultsDiv.className = "nav__results nav__results--active";
+      resultsDiv.appendChild(resultsLink);
+
+      const tableDiv = document.createElement("div");
+      tableDiv.className = "nav__table";
+      tableDiv.appendChild(tableLink);
+
+      // Append Results and Table divs to the .nav container
+      nav.appendChild(resultsDiv);
+      nav.appendChild(tableDiv);
+    });
+  });
 // MAIN SECTION
 
-function toggleActive(link) {
-    navLinks.forEach(function (link) {
-        link.classList.remove('nav__link--active');
-    });
-    link.classList.add('nav__link--active');
-}
 
-function showSection(sectionID) {
-    sections.forEach(function (section) {
-        section.style.display = 'none';
-    });
 
-    tables.forEach(function (table) {
-        table.style.display = 'none';
-    });
-
-    if (sectionID === 'table') {
-        // If the "Table" link is clicked, display only the table content
-        const tableSection = document.querySelector('.table[data-section="table"]');
-        if (tableSection) {
-            tableSection.style.display = 'flex';
-        }
-    } else {
-        // For other sections, display their content
-        const targetSection = document.querySelector(`.main_${sectionID}`);
-        if (targetSection) {
-            targetSection.style.display = 'flex';
-        }
-    }
-}
-
-navLinks.forEach(function (link) {
-    link.addEventListener('click', function () {
-        const sectionID = link.getAttribute('data-section');
-        toggleActive(link);
-        showSection(sectionID);
-    });
-});
-
-// Handle the "Table" link separately
-const tableDiv = document.querySelector('.nav__table');
-tableDiv.addEventListener('click', function () {
-    showTable(); // A new function to handle the "Table" link
-});
-
-function showTable() {
-    // Add or remove the --active class for the "Table" link
-    tableDiv.classList.add('nav__link--active');
-    // Set the display of .table to "flex"
-    const tableSection = document.querySelector('.table[data-section="table"]');
-    if (tableSection) {
-        tableSection.style.display = 'flex';
-    }
-    // Remove the --active class from other nav__link elements
-    navLinks.forEach(function (link) {
-        if (link !== tableDiv) {
-            link.classList.remove('nav__link--active');
-        }
-    });
-}
-
-// Initialize by hiding all sections and only showing the "Table" section
-sections.forEach(function (section) {
-    section.style.display = 'none';
-});
-
-tables.forEach(function (table) {
-    table.style.display = 'none';
-});
-
-// Show the "Table" section on page load
-showTable();
-
-// Initialize by hiding all sections and only showing the "Table" section
-sections.forEach(function (section) {
-    section.style.display = 'none';
-});
-tables.forEach(function (table) {
-    table.style.display = 'none';
-});
-
-// Show the "Table" section on page load
-showSection('table');
-toggleActive(tableDiv);
 // API DATA
 
 let leagues = ['PL', 'PD', 'BL1', 'SA', 'FL1']
