@@ -109,6 +109,7 @@ body {
 	z-index: 100;
 
 	&__link {
+		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -119,41 +120,40 @@ body {
 		text-align: center;
 		text-transform: uppercase;
 		text-decoration: none;
+		background-size: 20%;
+		background-position: 50% 5%;
+		background-repeat: no-repeat;
 		color: #2e4f4f;
-		transition: transform 0.3s ease;
 
 		&--active {
 			z-index: 10;
-			text-decoration: underline;
 		}
-	}
-	&__link:hover {
-		transform: scale(0.98);
 	}
 
 	&__link:nth-child(1) {
 		grid-column: 1 / 3;
+		background-image: url(/dist/img/english.png);
 	}
 	&__link:nth-child(2) {
 		grid-column: 3 / 5;
+		background-image: url(/dist/img/spanish.png);
 	}
 	&__link:nth-child(3) {
 		grid-column: 5 / 7;
+		background-image: url(/dist/img/german.png);
 	}
 	&__link:nth-child(4) {
 		grid-column: 7 / 9;
+		background-image: url(/dist/img/italian.jpg);
 	}
 	&__link:nth-child(5) {
 		grid-column: 9 / -1;
+		background-image: url(/dist/img/french.jpg);
 	}
 
 	&__results {
 		grid-row: 2 / 3;
 		grid-column: 1 / 6;
-
-		&--active {
-			border-bottom: 3px solid;
-		}
 	}
 	&__table {
 		grid-row: 2 / 3;
@@ -162,28 +162,70 @@ body {
 
 	&__results,
 	&__table {
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		height: 100%;
 		background-color: #fff;
+		box-shadow: 0 0 10px rgba(46, 79, 79, 0.4);
 		font-family: inherit;
 		font-size: 2rem;
 		text-align: center;
 		text-decoration: none;
 		transition: font-size 0.3s ease;
 		cursor: pointer;
-		
+
 		a {
 			padding: 10px 100px;
 			color: #2e4f4f;
 			text-decoration: none;
 		}
 	}
+	&__link::before,
+	&__link::after,
+	&__table::before,
+	&__table::after,
+	&__results::before,
+	&__results::after {
+		content: '';
+		position: absolute;
+		width: 0;
+		bottom: 20px;
+		border-bottom: 2px solid #2e4f4f;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+		transition: all 0.5s;
+	}
 
-	&__results:hover,
-	&__table:hover {
-		font-size: 1.9rem;
+	&__table::before,
+	&__table::after,
+	&__results::before,
+	&__results::after {
+		bottom: 8px;
+	}
+
+	&__link::before,
+	&__results::before,
+	&__table::before {
+		right: 50%;
+	}
+
+	&__link::after,
+	&__results::after,
+	&__table::after {
+		left: 50%;
+	}
+
+	&__link:hover::before,
+	&__link:hover::after {
+		width: 40%;
+	}
+
+	&__results:hover::before,
+	&__results:hover::after,
+	&__table:hover::before,
+	&__table:hover::after {
+		width: 10%;
 	}
 }
 
@@ -195,8 +237,9 @@ body {
 	align-items: center;
 	width: 100vw;
 	height: 20vh;
-	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 	background-color: #bfcabd;
+	color: #2e4f4f;
 	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
 	z-index: 100;
 
@@ -210,7 +253,6 @@ body {
 		// margin: 0 auto;
 		grid-row: 1 / 2;
 		grid-column: 3 / 9;
-		color: #2e4f4f;
 		font-size: 2.4rem;
 		letter-spacing: 5px;
 	}
@@ -228,7 +270,7 @@ body {
 		height: 100vh;
 		background-color: #bfcabd;
 		transform: translateX(-102%);
-		transition: transform 0.3s ease;
+		transition: transform 0.5s ease;
 		z-index: 10;
 
 		&--active {
@@ -248,14 +290,14 @@ body {
 
 		&--active {
 			border-bottom: 2px solid #2e4f4f;
-			box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+			text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 		}
 	}
 
 	&__results {
 		grid-row: 2 / 3;
 		grid-column: 1 / 5;
-		border-right: 2px solid #2e4f4f;
+		border-right: 2px solid rgba(46, 79, 79, 0.4);
 	}
 	&__table {
 		grid-row: 2 / 3;
@@ -271,13 +313,17 @@ body {
 		color: #2e4f4f;
 		background-color: #fff;
 		font-family: inherit;
-		font-size: 1.6rem;
-		border-bottom: 2px solid #2e4f4f;
+		font-size: 1.8rem;
+		box-shadow: 0 0 15px #2e4f4f;
 		text-align: center;
 		transition: font-size 0.3s ease;
-		cursor: pointer;
 
-
+		a {
+			padding: 10px 50px;
+			color: #2e4f4f;
+			text-decoration: none;
+			cursor: pointer;
+		}
 	}
 }
 
@@ -341,8 +387,10 @@ body {
 			border-radius: 10px;
 			box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.2);
 		}
-		
-		&__score, &__team1, &__team2 {
+
+		&__score,
+		&__team1,
+		&__team2 {
 			margin: 0 5px;
 			padding: 10px;
 			font-size: 1.6rem;
@@ -352,8 +400,6 @@ body {
 		}
 	}
 }
-
-
 
 // MEDIA
 

@@ -2,6 +2,7 @@
 const heroImg = document.querySelector('.hero-img')
 const hamburger = document.querySelector('.hamburger')
 const nav = document.querySelector(".nav");
+const mobileLink = document.querySelectorAll('.nav-mobile__link')
 const mobileLinks = document.querySelector('.nav-mobile__links')
 const navLinks = document.querySelectorAll('.nav__link')
 const navResults = document.querySelectorAll('.nav__results');
@@ -40,6 +41,7 @@ hamburger.addEventListener('click', () => {
 	mobileLinks.classList.toggle('nav-mobile__links--active')
 })
 
+
   // Add click event listeners to .nav__link elements
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
@@ -54,7 +56,6 @@ hamburger.addEventListener('click', () => {
       }
 	  
       // Create Results and Table links for the clicked .nav__link
-    //   const linkText = link.textContent;
       const linkHref = link.getAttribute("href");
 	  
       const resultsLink = document.createElement("a");
@@ -84,9 +85,51 @@ hamburger.addEventListener('click', () => {
 // Toggle class of __active
 navLinks.forEach((link, index) => {
 	link.addEventListener('click', () => {
-			removeActiveClasses()
-			sections[index].classList.add('main__active')
+		const isActive = link.classList.contains('nav__link--active');
+    
+		// If it's not active, remove active classes from other links and add the active class
+		if (!isActive) {
+		  removeActiveClasses();
+		  sections[index].classList.add('main__active');
+		  // Also remove nav__link--active from other links
+		  navLinks.forEach((navLink) => {
+			navLink.classList.remove('nav__link--active');
+		  });
+		  link.classList.add('nav__link--active');
+		}
+
+			navLinks.forEach((navLink) => {
+				navLink.classList.remove('nav__link--active');
+			  });
+			  
+			  link.classList.add('nav__link--active');
+
 		})
+    })
+mobileLink.forEach((link, index) => {
+	link.addEventListener('click', () => {
+		const isActive = link.classList.contains('nav__link--active');
+    
+		// If it's not active, remove active classes from other links and add the active class
+		if (!isActive) {
+		  removeActiveClasses();
+		  sections[index].classList.add('main__active');
+		  // Also remove nav__link--active from other links
+		  navLinks.forEach((navLink) => {
+			navLink.classList.remove('nav__link--active');
+		  });
+		  link.classList.add('nav__link--active');
+		}
+
+			mobileLink.forEach((mobileLink) => {
+				mobileLink.classList.remove('nav-mobile__link--active');
+			  });
+
+			  link.classList.add('nav-mobile__link--active');
+
+			mobileLinks.classList.toggle('nav-mobile__links--active')
+			hamburger.classList.toggle('is-active')
+		});
     })
 
 	navTable.forEach((link, index) => {
