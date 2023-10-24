@@ -5,9 +5,24 @@ const nav = document.querySelector(".nav");
 const mobileLinks = document.querySelector('.nav-mobile__links')
 const navLinks = document.querySelectorAll('.nav__link')
 const navResults = document.querySelectorAll('.nav__results');
-const navTable = document.querySelectorAll('.nav__table');
+const navTable = document.querySelectorAll('.nav__table a');
 const sections = document.querySelectorAll('.main')
 const tables = document.querySelectorAll('.table');
+
+// Function to set the active section based on the URL hash
+function setActiveSectionFromHash() {
+	const hash = window.location.hash.substring(1); // Remove the '#' character
+	const section = document.getElementById(hash);
+	
+	if (section) {
+	  removeActiveClasses(); // Remove active classes from all sections
+	  section.classList.add('main__active'); // Add active class to the section with the hash
+	}
+  }
+  
+  // Add event listener to handle hash changes and initial page load
+  window.addEventListener('hashchange', setActiveSectionFromHash);
+  window.addEventListener('load', setActiveSectionFromHash);
 
 // HERO IMAGE
 
@@ -37,11 +52,11 @@ hamburger.addEventListener('click', () => {
       if (existingTableDiv) {
         existingTableDiv.remove();
       }
-
+	  
       // Create Results and Table links for the clicked .nav__link
-      const linkText = link.textContent;
+    //   const linkText = link.textContent;
       const linkHref = link.getAttribute("href");
-
+	  
       const resultsLink = document.createElement("a");
       resultsLink.href = linkHref;
       resultsLink.textContent = "Results";
@@ -49,22 +64,44 @@ hamburger.addEventListener('click', () => {
       const tableLink = document.createElement("a");
       tableLink.href = linkHref + "-table";
       tableLink.textContent = "Table";
-
+	  
       const resultsDiv = document.createElement("div");
       resultsDiv.className = "nav__results nav__results--active";
       resultsDiv.appendChild(resultsLink);
-
+	  
       const tableDiv = document.createElement("div");
       tableDiv.className = "nav__table";
       tableDiv.appendChild(tableLink);
-
+	  
       // Append Results and Table divs to the .nav container
       nav.appendChild(resultsDiv);
       nav.appendChild(tableDiv);
     });
-  });
+});
+
 // MAIN SECTION
 
+// Toggle class of __active
+navLinks.forEach((link, index) => {
+	link.addEventListener('click', () => {
+			removeActiveClasses()
+			sections[index].classList.add('main__active')
+		})
+    })
+
+	navTable.forEach((link, index) => {
+		link.addEventListener('click', (event) => {
+		  event.preventDefault();
+		  removeActiveClasses();
+		  sections[index + 1].classList.add('main__active'); // +1 to select the next section
+		});
+	  })
+
+function removeActiveClasses() {
+	sections.forEach(section => {
+		section.classList.remove('main__active')
+    })
+}
 
 
 // API DATA
