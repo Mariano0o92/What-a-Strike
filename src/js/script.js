@@ -161,7 +161,7 @@ function getData(id, pageIndex) {
 	const leagueID = `${id}`
 
 
-	fetch(URL_API + leagueID, {
+	fetch(URL_API + leagueID + '/standings', {
 		method: 'GET',
 		headers: {
 			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
@@ -170,8 +170,8 @@ function getData(id, pageIndex) {
 	})
 		.then(res => res.json())
 		.then(data => {
-			createScores(data, pageIndex)
-			// console.log(data);
+			createstandings(data, pageIndex)
+			console.log(data);
 		})
 		.catch(err => {
 			console.log(err)
@@ -179,12 +179,29 @@ function getData(id, pageIndex) {
 	}
 
 
-	const createScores = (league, pageIndex) => {
-		const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
-		const scores = document.getElementById(sectionID).querySelector('.scores')
-			const logo = league.emblem
-			scores.style.backgroundImage = `url(${logo})`
-			// console.log(logo);
+// 	const createScores = (league, pageIndex) => {
+// 		const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
+// 		const scores = document.getElementById(sectionID).querySelector('.scores')
 		
 		
+		
+// };
+	const createstandings = (league, pageIndex) => {
+		const sectionID = ['english-table', 'spanish-table', 'german-table', 'italian-table', 'french-table'][pageIndex];
+		const standings = document.getElementById(sectionID).querySelector('.standings')
+		standings.innerHTML = `<thead class="standings__header">
+		<tr>
+		  <th class="rank">#</th>
+		  <th class="team">Team</th>
+		  <th class="played">P</th>
+		  <th class="won">W</th>
+		  <th class="drawn">D</th>
+		  <th class="lost">L</th>
+		  <th class="for">+</th>
+		  <th class="against">-</th>
+		  <th class="difference">+/-</th>
+		  <th class="points">P</th>
+		</tr>
+	  </thead>
+	  <tbody class="standings__body"></tbody>`
 };

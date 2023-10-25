@@ -98,14 +98,12 @@ body {
 	position: sticky;
 	top: 0;
 	margin: 0 auto;
-	align-items: center;
-	justify-content: space-around;
 	width: 100vw;
 	max-width: 1200px;
 	height: 20vh;
 	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 	background-color: #bfcabd;
-	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 -10px 20px 5px #bfcabd;
 	z-index: 100;
 
 	&__link {
@@ -154,6 +152,7 @@ body {
 	&__results {
 		grid-row: 2 / 3;
 		grid-column: 1 / 6;
+		border-right: 2px solid rgba(46, 79, 79, 0.2);
 	}
 	&__table {
 		grid-row: 2 / 3;
@@ -168,7 +167,7 @@ body {
 		justify-content: center;
 		height: 100%;
 		background-color: #fff;
-		box-shadow: 0 0 10px rgba(46, 79, 79, 0.4);
+		box-shadow: 0 -5px 5px rgba(46, 79, 79, 0.2);
 		font-family: inherit;
 		font-size: 2rem;
 		text-align: center;
@@ -368,7 +367,7 @@ body {
 	max-width: 1200px;
 	font-family: inherit;
 	overflow-x: hidden;
-	
+
 	&__active {
 		display: flex;
 	}
@@ -396,8 +395,6 @@ body {
 		opacity: 0.5;
 	}
 
-
-
 	.scores {
 		display: flex;
 		flex-grow: 1;
@@ -409,7 +406,6 @@ body {
 		align-items: center;
 		width: 80%;
 		font-size: 2rem;
-
 		color: #2e4f4f;
 
 		&__container {
@@ -440,6 +436,19 @@ body {
 			border-radius: 10px;
 			box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.2);
 		}
+	}
+
+	.standings {
+		padding: 10px 30px;
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		justify-content: center;
+		align-items: center;
+		font-size: 2rem;
+		background-color: #fff;
+		color: #2e4f4f;
+		border-radius: 10px;
 	}
 }
 
