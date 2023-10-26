@@ -92,7 +92,7 @@ body {
 //NAVIGATION
 
 .nav {
-	display: none;
+	display: grid;
 	grid-template-rows: 3fr 1fr;
 	grid-template-columns: repeat(10, 1fr);
 	position: sticky;
@@ -231,7 +231,7 @@ body {
 .nav-mobile {
 	position: sticky;
 	top: 0;
-	display: grid;
+	display: none;
 	grid-template-rows: 3fr 1fr;
 	grid-template-columns: repeat(8, 1fr);
 	align-items: center;
@@ -382,11 +382,10 @@ body {
 		background-image: url('/dist/img/main_field_large.jpg');
 		background-position: bottom;
 		background-size: cover;
-		opacity: 1;
 	}
 
 	&__logo-img {
-		position: fixed;
+		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -443,8 +442,8 @@ body {
 	// STANDINGS
 
 	.standings {
-		padding: 10px 30px;
 		position: absolute;
+		top: 1vh;
 		display: table;
 		font-size: 1.5rem;
 		background-color: rgba(255, 255, 255, 0.7);
@@ -504,13 +503,42 @@ body {
 
 // MEDIA
 
+@media (max-width: 768px) {
+	.nav {
+		display: none;
+	}
+
+	.nav-mobile {
+		display: grid;
+	}
+
+	.main {
+		.standings {
+			font-size: 1.3rem;
+		}
+	}
+}
+
 @media (max-width: 576px) {
 	.nav-mobile__title {
-		font-size: 1.3rem;
+		font-size: 1.2rem;
 	}
 
 	.main {
 		overflow-x: hidden;
+
+		.standings {
+			font-size: 1rem;
+
+			&__header-for,
+			&__header-against,
+			&__header-difference,
+			&__teams-for,
+			&__teams-against,
+			&__teams-difference {
+				display: none;
+			}
+		}
 
 		&__img {
 			background-image: url('/dist/img/main_field.jpg');
@@ -523,27 +551,25 @@ body {
 	}
 }
 
-@media (min-width: 768px) {
-	.nav {
-		display: grid;
+@media (max-width: 350px) {
+	.nav-mobile__title {
+		font-size: 1rem;
 	}
 
-	.nav-mobile {
-		display: none;
+	.main {
+		.standings {
+			font-size: 0.8rem;
+		}
 	}
 }
 
 @media (max-height: 800px) {
 	.nav {
-		&__link {
-			background-size: 10%;
-			background-position: 50% 0%;
-			padding-bottom: 0.1rem;
-		}
-		&__link::before,
-		&__link::after {
-			bottom: 2px;
-		}
+		display: none;
+	}
+
+	.nav-mobile {
+		display: grid;
 	}
 
 	.main {

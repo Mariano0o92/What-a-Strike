@@ -2,11 +2,14 @@
 const heroImg = document.querySelector('.hero-img')
 const hamburger = document.querySelector('.hamburger')
 const nav = document.querySelector('.nav')
+const navMobile = document.querySelector('.nav-mobile')
 const mobileLink = document.querySelectorAll('.nav-mobile__link')
 const mobileLinks = document.querySelector('.nav-mobile__links')
 const navLinks = document.querySelectorAll('.nav__link')
 const navResults = document.querySelectorAll('.nav__results')
 const navTable = document.querySelectorAll('.nav__table a')
+const mobileResults = document.querySelectorAll('.nav-mobile__results')
+const mobileTable = document.querySelectorAll('nav-mobile__table a')
 const sections = document.querySelectorAll('.main')
 const tables = document.querySelectorAll('.table')
 
@@ -33,7 +36,7 @@ const hideHero = () => {
 
 setTimeout(hideHero, 5000)
 
-// NAVIGATION
+// NAVIGATION MOBILE
 
 hamburger.addEventListener('click', () => {
 	hamburger.classList.toggle('is-active')
@@ -41,6 +44,44 @@ hamburger.addEventListener('click', () => {
 	mobileLinks.classList.toggle('nav-mobile__links--active')
 })
 
+mobileLink.forEach(link => {
+	link.addEventListener('click', () => {
+		const existingResultsDiv = nav.querySelector('.nav-mobile__results')
+		const existingTableDiv = nav.querySelector('.nav-mobile__table')
+		if (existingResultsDiv) {
+			existingResultsDiv.remove()
+		}
+		if (existingTableDiv) {
+			existingTableDiv.remove()
+		}
+		
+		
+		const linkHref = link.getAttribute('href')
+		console.log('linkHref:', linkHref);
+
+		const resultsLink = document.createElement('a')
+		resultsLink.href = linkHref
+		resultsLink.textContent = 'Results'
+
+		const tableLink = document.createElement('a')
+		tableLink.href = linkHref + '-table'
+		tableLink.textContent = 'Standings'
+
+		const resultsDiv = document.createElement('div')
+		resultsDiv.className = 'nav-mobile__results nav-mobile__results--active'
+		resultsDiv.appendChild(resultsLink)
+
+		const tableDiv = document.createElement('div')
+		tableDiv.className = 'nav-mobile__table'
+		tableDiv.appendChild(tableLink)
+
+		
+        navMobile.appendChild(resultsDiv);
+        navMobile.appendChild(tableDiv)
+	})
+})
+
+// NAVIGATION DESKTOP
 
 navLinks.forEach(link => {
 	link.addEventListener('click', () => {
@@ -79,6 +120,7 @@ navLinks.forEach(link => {
 	})
 })
 
+
 // MAIN SECTION
 
 // Toggle class of __active
@@ -105,6 +147,14 @@ navLinks.forEach((link, index) => {
 		})
 
 		link.classList.add('nav__link--active')
+	})
+})
+
+navTable.forEach((link, index) => {
+	link.addEventListener('click', event => {
+		event.preventDefault()
+		removeActiveClasses()
+		sections[index + 1].classList.add('main__active') // +1 to select the next section
 	})
 })
 
@@ -135,7 +185,7 @@ mobileLink.forEach((link, index) => {
 	})
 })
 
-navTable.forEach((link, index) => {
+mobileTable.forEach((link, index) => {
 	link.addEventListener('click', event => {
 		event.preventDefault()
 		removeActiveClasses()
