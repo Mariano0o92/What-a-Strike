@@ -9,9 +9,9 @@ const navLinks = document.querySelectorAll('.nav__link')
 const navResults = document.querySelectorAll('.nav__results')
 const navTable = document.querySelectorAll('.nav__table a')
 const mobileResults = document.querySelectorAll('.nav-mobile__results')
-const mobileTable = document.querySelectorAll('nav-mobile__table a')
+const mobileTable = document.querySelectorAll('.nav-mobile__table a')
 const sections = document.querySelectorAll('.main')
-const tables = document.querySelectorAll('.table')
+const tables = document.querySelectorAll('.standings')
 
 
 function setActiveSectionFromHash() {
@@ -46,8 +46,8 @@ hamburger.addEventListener('click', () => {
 
 mobileLink.forEach(link => {
 	link.addEventListener('click', () => {
-		const existingResultsDiv = nav.querySelector('.nav-mobile__results')
-		const existingTableDiv = nav.querySelector('.nav-mobile__table')
+		const existingResultsDiv = navMobile.querySelector('.nav-mobile__results')
+		const existingTableDiv = navMobile.querySelector('.nav-mobile__table')
 		if (existingResultsDiv) {
 			existingResultsDiv.remove()
 		}
@@ -57,7 +57,6 @@ mobileLink.forEach(link => {
 		
 		
 		const linkHref = link.getAttribute('href')
-		console.log('linkHref:', linkHref);
 
 		const resultsLink = document.createElement('a')
 		resultsLink.href = linkHref
@@ -176,7 +175,7 @@ mobileLink.forEach((link, index) => {
 
 		mobileLink.forEach(mobileLink => {
 			mobileLink.classList.remove('nav-mobile__link--active')
-		})
+		}) 
 
 		link.classList.add('nav-mobile__link--active')
 
@@ -204,7 +203,7 @@ function removeActiveClasses() {
 let leagues = ['PL', 'PD', 'BL1', 'SA', 'FL1']
 
 leagues.forEach((id, index) => {
-	getData(id, index)
+	// getData(id, index)
 })
 
 function getData(id, pageIndex) {
