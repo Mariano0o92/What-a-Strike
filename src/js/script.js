@@ -150,8 +150,7 @@ navLinks.forEach((link, index) => {
 })
 
 navTable.forEach((link, index) => {
-	link.addEventListener('click', event => {
-		event.preventDefault()
+	link.addEventListener('click', () => {
 		removeActiveClasses()
 		sections[index + 1].classList.add('main__active') // +1 to select the next section
 	})
@@ -185,8 +184,7 @@ mobileLink.forEach((link, index) => {
 })
 
 mobileTable.forEach((link, index) => {
-	link.addEventListener('click', event => {
-		event.preventDefault()
+	link.addEventListener('click', () => {
 		removeActiveClasses()
 		sections[index + 1].classList.add('main__active') // +1 to select the next section
 	})
