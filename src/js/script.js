@@ -201,7 +201,7 @@ function removeActiveClasses() {
 let leagues = ['PL', 'PD', 'BL1', 'SA', 'FL1']
 
 leagues.forEach((id, index) => {
-	// getData(id, index)
+	getData(id, index)
 })
 
 function getData(id, pageIndex) {
