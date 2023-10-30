@@ -13,9 +13,10 @@ html {
 }
 
 body {
-	font-family: 'Numans', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	font-size: 1.6rem;
 	background-color: #fff;
+	overflow-x: hidden;
 }
 
 // FIRST SCREEN
@@ -27,7 +28,8 @@ body {
 	height: 100vh;
 	width: 100vw;
 	transition: height 0.8s ease;
-	z-index: -1;
+	z-index: 1;
+	overflow: hidden;
 	img {
 		width: 100%;
 		height: 100%;
@@ -46,7 +48,7 @@ body {
 		color: #bfcabd;
 		opacity: 0;
 		animation: show 5s 0.5s ease forwards;
-		z-index: 1;
+		z-index: 3;
 
 		h1 {
 			margin-bottom: 0.5rem;
@@ -68,7 +70,7 @@ body {
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.7);
-		z-index: 0;
+		z-index: 2;
 	}
 	&__api-info {
 		position: absolute;
@@ -412,32 +414,66 @@ body {
 		color: #2e4f4f;
 
 		&__container {
-			display: flex;
-			padding: 20px;
-			align-items: center;
-			justify-content: center;
+			width: 100%;
+			padding-top: 20px;
 			text-align: center;
 			color: #2e4f4f;
 		}
 
 		&__round {
 			margin-top: 10px;
-			padding: 10px 5px;
+			padding: 10px 10px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
 			font-size: 2.5rem;
 			background-color: #bfcabd;
+			color: #2e4f4f;
+			border: none;
 			border-radius: 10px;
 			box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.2);
+			cursor: pointer;
+			
+			button {
+				width: 100%;
+				border: none;
+				background-color: transparent;
+				font-size: 2.5rem;
+				font-family: inherit;
+				color: #2e4f4f;
+				
+			}
+			.fa-chevron-down {
+				transition: 0.5s ease;
+			}
+			
+			.fa-chevron-down.rotate {
+				transform: rotate(180deg);
+				transform-origin: center;	
+			}
+			
 		}
 
-		&__score,
-		&__team1,
-		&__team2 {
-			margin: 0 5px;
+		&__score {
+			display: none;
+			justify-content: space-between;
+			font-weight: lighter;
+			margin-top: 10px;
 			padding: 10px;
-			font-size: 1.6rem;
 			background-color: rgba(255, 255, 255, 1);
 			border-radius: 10px;
 			box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.2);
+			transition: 0.3s ease;
+
+			&--active {
+				display: flex;
+			}
+
+			span {
+				font-weight: normal;
+				flex-grow: 1;
+			}
 		}
 	}
 

@@ -12,6 +12,8 @@ const mobileResults = document.querySelectorAll('.nav-mobile__results')
 const mobileTable = document.querySelectorAll('.nav-mobile__table a')
 const sections = document.querySelectorAll('.main')
 const tables = document.querySelectorAll('.standings')
+const scoresContainers = document.querySelectorAll('.scores__container')
+const scoresRound = document.querySelectorAll('.scores__round')
 
 
 function setActiveSectionFromHash() {
@@ -34,7 +36,13 @@ const hideHero = () => {
 	heroImg.classList.add('hide')
 }
 
+const heroDisplayNone = () => {
+	heroImg.style.display = ('none')
+	
+}
+
 setTimeout(hideHero, 5000)
+setTimeout(heroDisplayNone, 5800)
 
 // NAVIGATION MOBILE
 
@@ -196,15 +204,29 @@ function removeActiveClasses() {
 	})
 }
 
+// SCORES
+
+function showScores(e) {
+	const arrowContainer = e.currentTarget;
+	console.log(arrowContainer);
+	const arrowDown = arrowContainer.querySelector('.fa-chevron-down');
+	const scores = arrowContainer.querySelector('.scores__score')
+	scores.classList.toggle('scores__score--active');
+	arrowDown.classList.toggle('rotate');
+}
+
+scoresContainers.forEach(container => container.addEventListener('click', showScores));
+
 // API DATA
 
 let leagues = ['PL', 'PD', 'BL1', 'SA', 'FL1']
 
 leagues.forEach((id, index) => {
-	getData(id, index)
+	// getStandings(id, index)
+	// getResults(id, index)
 })
 
-function getData(id, pageIndex) {
+function getStandings(id, pageIndex) {
 	const URL_API = 'https://api.football-data.org/v4/competitions/'
 	const leagueID = `${id}`
 
@@ -224,57 +246,78 @@ function getData(id, pageIndex) {
 		})
 }
 
-// 	const createScores = (league, pageIndex) => {
-// 		const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
-// 		const scores = document.getElementById(sectionID).querySelector('.scores')
+function getResults(id, pageIndex) {
+	const URL_API = 'https://api.football-data.org/v4/competitions/'
+	const leagueID = `${id}`
 
-// };
+	fetch(URL_API + leagueID + '/matches', {
+		method: 'GET',
+		headers: {
+			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
+			'Accept-Encoding': '',
+		},
+	})
+		.then(res => res.json())
+		.then(data => {
+			console.log(data);
+		})
+		.catch(err => {
+			console.log(err)
+		})
+}
+
 const createstandings = (league, pageIndex) => {
 	const sectionID = ['english-table', 'spanish-table', 'german-table', 'italian-table', 'french-table'][pageIndex]
 	const standings = document.getElementById(sectionID).querySelector('.standings')
 	const getTable = league.standings[0].table
 
-	  const header = document.createElement('thead');
-	  header.classList.add('standings__header');
-	  header.innerHTML = `
-		<tr>
-		  <th class="standings__header-rank">#</th>
-		  <th class="standings__header-team">Team</th>
-		  <th class="standings__header-played">P</th>
-		  <th class="standings__header-won">W</th>
-		  <th class="standings__header-drawn">D</th>
-		  <th class="standings__header-lost">L</th>
-		  <th class="standings__header-for">+</th>
-		  <th class="standings__header-against">-</th>
-		  <th class="standings__header-difference">+/-</th>
-		  <th class="standings__header-points">P</th>
-		</tr>
-	  `;
-	  standings.appendChild(header);
+	const header = document.createElement('thead');
+	header.classList.add('standings__header');
+	header.innerHTML = `
+	<tr>
+	<th class="standings__header-rank">#</th>
+	<th class="standings__header-team">Team</th>
+	<th class="standings__header-played">P</th>
+	<th class="standings__header-won">W</th>
+	<th class="standings__header-drawn">D</th>
+	<th class="standings__header-lost">L</th>
+	<th class="standings__header-for">+</th>
+	<th class="standings__header-against">-</th>
+	<th class="standings__header-difference">+/-</th>
+	<th class="standings__header-points">P</th>
+	</tr>
+	`;
+	standings.appendChild(header);
 	
-	  const tbody = document.createElement('tbody');
-	  tbody.classList.add('standings__teams');
-
-	  getTable.forEach((teamData) => {
+	const tbody = document.createElement('tbody');
+	tbody.classList.add('standings__teams');
+	
+	getTable.forEach((teamData) => {
 		const tr = document.createElement('tr');
 		tr.innerHTML = `
-		  <td class="standings__teams-rank">${teamData.position}</td>
-		  <td class="standings__teams-team">
-			<img src="${teamData.team.crest}" alt="${teamData.team.name}">
-			<span class="standings__teams-name-full">${teamData.team.name}</span>
-		  </td>
-		  <td class="standings__teams-played">${teamData.playedGames}</td>
-		  <td class="standings__teams-won">${teamData.won}</td>
-		  <td class="standings__teams-drawn">${teamData.draw}</td>
-		  <td class="standings__teams-lost">${teamData.lost}</td>
-		  <td class="standings__teams-for">${teamData.goalsFor}</td>
-		  <td class="standings__teams-against">${teamData.goalsAgainst}</td>
-		  <td class="standings__teams-difference">${teamData.goalDifference}</td>
-		  <td class="standings__teams-points">${teamData.points}</td>
+		<td class="standings__teams-rank">${teamData.position}</td>
+		<td class="standings__teams-team">
+		<img src="${teamData.team.crest}" alt="${teamData.team.name}">
+		<span class="standings__teams-name-full">${teamData.team.name}</span>
+		</td>
+		<td class="standings__teams-played">${teamData.playedGames}</td>
+		<td class="standings__teams-won">${teamData.won}</td>
+		<td class="standings__teams-drawn">${teamData.draw}</td>
+		<td class="standings__teams-lost">${teamData.lost}</td>
+		<td class="standings__teams-for">${teamData.goalsFor}</td>
+		<td class="standings__teams-against">${teamData.goalsAgainst}</td>
+		<td class="standings__teams-difference">${teamData.goalDifference}</td>
+		<td class="standings__teams-points">${teamData.points}</td>
 		`;
 		tbody.appendChild(tr);
-	  });
-
-	  standings.appendChild(tbody)
-
+	});
+	
+	standings.appendChild(tbody)
+	
 }
+
+	const createResults = (league, pageIndex) => {
+		const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
+		const scores = document.getElementById(sectionID).querySelector('.scores')
+
+};
