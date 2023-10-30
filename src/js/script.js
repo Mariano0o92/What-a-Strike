@@ -208,7 +208,6 @@ function removeActiveClasses() {
 
 function showScores(e) {
 	const arrowContainer = e.currentTarget;
-	console.log(arrowContainer);
 	const arrowDown = arrowContainer.querySelector('.fa-chevron-down');
 	const scores = arrowContainer.querySelector('.scores__score')
 	scores.classList.toggle('scores__score--active');
