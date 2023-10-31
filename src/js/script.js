@@ -12,9 +12,9 @@ const mobileResults = document.querySelectorAll('.nav-mobile__results')
 const mobileTable = document.querySelectorAll('.nav-mobile__table a')
 const sections = document.querySelectorAll('.main')
 const tables = document.querySelectorAll('.standings')
+const scoresSection = document.querySelectorAll('.scores')
 const scoresContainers = document.querySelectorAll('.scores__container')
 const scoresRound = document.querySelectorAll('.scores__round')
-
 
 function setActiveSectionFromHash() {
 	const hash = window.location.hash.substring(1)
@@ -26,7 +26,6 @@ function setActiveSectionFromHash() {
 	}
 }
 
-
 window.addEventListener('hashchange', setActiveSectionFromHash)
 window.addEventListener('load', setActiveSectionFromHash)
 
@@ -37,8 +36,7 @@ const hideHero = () => {
 }
 
 const heroDisplayNone = () => {
-	heroImg.style.display = ('none')
-	
+	heroImg.style.display = 'none'
 }
 
 setTimeout(hideHero, 5000)
@@ -62,8 +60,7 @@ mobileLink.forEach(link => {
 		if (existingTableDiv) {
 			existingTableDiv.remove()
 		}
-		
-		
+
 		const linkHref = link.getAttribute('href')
 
 		const resultsLink = document.createElement('a')
@@ -82,9 +79,13 @@ mobileLink.forEach(link => {
 		tableDiv.className = 'nav-mobile__table'
 		tableDiv.appendChild(tableLink)
 
-		
-        navMobile.appendChild(resultsDiv);
-        navMobile.appendChild(tableDiv)
+		const bottomContainer = document.createElement('div')
+		bottomContainer.className = 'nav-mobile__bottom-container'
+
+		bottomContainer.appendChild(resultsDiv)
+		bottomContainer.appendChild(tableDiv)
+
+		navMobile.appendChild(bottomContainer)
 	})
 })
 
@@ -92,7 +93,6 @@ mobileLink.forEach(link => {
 
 navLinks.forEach(link => {
 	link.addEventListener('click', () => {
-
 		const existingResultsDiv = nav.querySelector('.nav__results')
 		const existingTableDiv = nav.querySelector('.nav__table')
 		if (existingResultsDiv) {
@@ -102,7 +102,6 @@ navLinks.forEach(link => {
 			existingTableDiv.remove()
 		}
 
-	
 		const linkHref = link.getAttribute('href')
 
 		const resultsLink = document.createElement('a')
@@ -121,12 +120,10 @@ navLinks.forEach(link => {
 		tableDiv.className = 'nav__table'
 		tableDiv.appendChild(tableLink)
 
-		
 		nav.appendChild(resultsDiv)
 		nav.appendChild(tableDiv)
 	})
 })
-
 
 // MAIN SECTION
 
@@ -138,11 +135,10 @@ navLinks.forEach((link, index) => {
 	link.addEventListener('click', () => {
 		const isActive = link.classList.contains('nav__link--active')
 
-		
 		if (!isActive) {
 			removeActiveClasses()
 			sections[index].classList.add('main__active')
-			
+
 			navLinks.forEach(navLink => {
 				navLink.classList.remove('nav__link--active')
 			})
@@ -173,7 +169,7 @@ mobileLink.forEach((link, index) => {
 		if (!isActive) {
 			removeActiveClasses()
 			sections[index].classList.add('main__active')
-	
+
 			mobileLink.forEach(mobileLink => {
 				mobileLink.classList.remove('nav-mobile__link--active')
 			})
@@ -182,7 +178,7 @@ mobileLink.forEach((link, index) => {
 
 		mobileLink.forEach(mobileLink => {
 			mobileLink.classList.remove('nav-mobile__link--active')
-		}) 
+		})
 
 		link.classList.add('nav-mobile__link--active')
 
@@ -207,22 +203,35 @@ function removeActiveClasses() {
 // SCORES
 
 function showScores(e) {
-	const arrowContainer = e.currentTarget;
-	const arrowDown = arrowContainer.querySelector('.fa-chevron-down');
-	const scores = arrowContainer.querySelector('.scores__score')
-	scores.classList.toggle('scores__score--active');
-	arrowDown.classList.toggle('rotate');
+	const isRound = e.target.classList.contains('scores__round');
+	const isArrowDown = e.target.classList.contains('fa-chevron-down');
+	
+	if (isRound || (isArrowDown && e.target.parentElement.classList.contains('scores__round'))) {
+	  const arrowContainer = isRound ? e.target : e.target.parentElement;
+	  const arrowDown = arrowContainer.querySelector('.fa-chevron-down');
+
+		const siblings = Array.from(arrowContainer.parentElement.children);
+    
+    
+    siblings.forEach((sibling) => {
+     
+        sibling.classList.toggle('scores__score--active');
+      
+    });
+    
+    arrowDown.classList.toggle('rotate');
+}
 }
 
-scoresContainers.forEach(container => container.addEventListener('click', showScores));
+scoresSection.forEach(section => section.addEventListener('click', showScores))
 
 // API DATA
 
 let leagues = ['PL', 'PD', 'BL1', 'SA', 'FL1']
 
 leagues.forEach((id, index) => {
-	// getStandings(id, index)
-	// getResults(id, index)
+	getStandings(id, index)
+	getResults(id, index)
 })
 
 function getStandings(id, pageIndex) {
@@ -258,7 +267,7 @@ function getResults(id, pageIndex) {
 	})
 		.then(res => res.json())
 		.then(data => {
-			console.log(data);
+			createResults(data, pageIndex)
 		})
 		.catch(err => {
 			console.log(err)
@@ -269,9 +278,8 @@ const createstandings = (league, pageIndex) => {
 	const sectionID = ['english-table', 'spanish-table', 'german-table', 'italian-table', 'french-table'][pageIndex]
 	const standings = document.getElementById(sectionID).querySelector('.standings')
 	const getTable = league.standings[0].table
-
-	const header = document.createElement('thead');
-	header.classList.add('standings__header');
+	const header = document.createElement('thead')
+	header.classList.add('standings__header')
 	header.innerHTML = `
 	<tr>
 	<th class="standings__header-rank">#</th>
@@ -285,14 +293,14 @@ const createstandings = (league, pageIndex) => {
 	<th class="standings__header-difference">+/-</th>
 	<th class="standings__header-points">P</th>
 	</tr>
-	`;
-	standings.appendChild(header);
-	
-	const tbody = document.createElement('tbody');
-	tbody.classList.add('standings__teams');
-	
-	getTable.forEach((teamData) => {
-		const tr = document.createElement('tr');
+	`
+	standings.appendChild(header)
+
+	const tbody = document.createElement('tbody')
+	tbody.classList.add('standings__teams')
+
+	getTable.forEach(teamData => {
+		const tr = document.createElement('tr')
 		tr.innerHTML = `
 		<td class="standings__teams-rank">${teamData.position}</td>
 		<td class="standings__teams-team">
@@ -307,16 +315,67 @@ const createstandings = (league, pageIndex) => {
 		<td class="standings__teams-against">${teamData.goalsAgainst}</td>
 		<td class="standings__teams-difference">${teamData.goalDifference}</td>
 		<td class="standings__teams-points">${teamData.points}</td>
-		`;
-		tbody.appendChild(tr);
-	});
-	
+		`
+		tbody.appendChild(tr)
+	})
+
 	standings.appendChild(tbody)
-	
 }
 
-	const createResults = (league, pageIndex) => {
-		const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
-		const scores = document.getElementById(sectionID).querySelector('.scores')
 
-};
+const createResults = (league, pageIndex) => {
+	const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
+	const scores = document.getElementById(sectionID).querySelector('.scores');
+	const getResults = league.matches;
+  console.log(getResults);
+	let currentMatchday = null;
+	const scoresContainers = [];
+	const currentDate = new Date();
+  
+	getResults.forEach((match) => {
+	  const matchday = match.matchday;
+	  const matchDate = new Date(match.utcDate);
+  
+	  if (matchDate > currentDate) {
+		return;
+	  }
+  
+	  if (currentMatchday !== matchday) {
+		currentMatchday = matchday;
+  
+		const scoresContainer = document.createElement('div');
+		scoresContainer.classList.add('scores__container');
+  
+		const roundButton = document.createElement('button');
+		roundButton.classList.add('scores__round');
+		roundButton.innerHTML = `Round - ${matchday} <i class="fa-solid fa-chevron-down rotate"></i>`;
+		scoresContainer.appendChild(roundButton);
+  
+		scoresContainers.push(scoresContainer);
+	  }
+
+	  
+  const matchStart = match.utcDate.replace('T', ' ').replace('Z', '')
+	  const matchContent = document.createElement('div');
+	  matchContent.classList.add('scores__score');
+
+
+
+	  matchContent.innerHTML = `
+		${matchStart} <span><img src="${match.homeTeam.crest}" alt="${match.homeTeam.name}">${match.homeTeam.shortName} ${match.score.fullTime.home} : ${match.score.fullTime.away} <img src="${match.awayTeam.crest}" alt="${match.awayTeam.name}">${match.awayTeam.shortName}</span>`;
+	  scoresContainers[scoresContainers.length - 1].appendChild(matchContent);
+	});
+  
+	
+	for (let i = scoresContainers.length - 1; i >= 0; i--) {
+	  scores.appendChild(scoresContainers[i]);
+	}
+  }
+
+
+  
+  
+  
+  
+  
+  
