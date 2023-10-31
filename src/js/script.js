@@ -13,7 +13,6 @@ const mobileTable = document.querySelectorAll('.nav-mobile__table a')
 const sections = document.querySelectorAll('.main')
 const tables = document.querySelectorAll('.standings')
 const scoresSection = document.querySelectorAll('.scores')
-const scoresContainers = document.querySelectorAll('.scores__container')
 const scoresRound = document.querySelectorAll('.scores__round')
 
 function setActiveSectionFromHash() {
@@ -203,24 +202,21 @@ function removeActiveClasses() {
 // SCORES
 
 function showScores(e) {
-	const isRound = e.target.classList.contains('scores__round');
-	const isArrowDown = e.target.classList.contains('fa-chevron-down');
-	
-	if (isRound || (isArrowDown && e.target.parentElement.classList.contains('scores__round'))) {
-	  const arrowContainer = isRound ? e.target : e.target.parentElement;
-	  const arrowDown = arrowContainer.querySelector('.fa-chevron-down');
+	const isRound = e.target.classList.contains('scores__round')
+	const isArrowDown = e.target.classList.contains('fa-chevron-down')
 
-		const siblings = Array.from(arrowContainer.parentElement.children);
-    
-    
-    siblings.forEach((sibling) => {
-     
-        sibling.classList.toggle('scores__score--active');
-      
-    });
-    
-    arrowDown.classList.toggle('rotate');
-}
+	if (isRound || (isArrowDown && e.target.parentElement.classList.contains('scores__round'))) {
+		const arrowContainer = isRound ? e.target : e.target.parentElement
+		const arrowDown = arrowContainer.querySelector('.fa-chevron-down')
+
+		const siblings = Array.from(arrowContainer.parentElement.children)
+
+		siblings.forEach(sibling => {
+			sibling.classList.toggle('scores__score--active')
+		})
+
+		arrowDown.classList.toggle('rotate')
+	}
 }
 
 scoresSection.forEach(section => section.addEventListener('click', showScores))
@@ -322,60 +318,58 @@ const createstandings = (league, pageIndex) => {
 	standings.appendChild(tbody)
 }
 
-
 const createResults = (league, pageIndex) => {
-	const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
-	const scores = document.getElementById(sectionID).querySelector('.scores');
-	const getResults = league.matches;
-  console.log(getResults);
-	let currentMatchday = null;
-	const scoresContainers = [];
-	const currentDate = new Date();
-  
-	getResults.forEach((match) => {
-	  const matchday = match.matchday;
-	  const matchDate = new Date(match.utcDate);
-  
-	  if (matchDate > currentDate) {
-		return;
-	  }
-  
-	  if (currentMatchday !== matchday) {
-		currentMatchday = matchday;
-  
-		const scoresContainer = document.createElement('div');
-		scoresContainer.classList.add('scores__container');
-  
-		const roundButton = document.createElement('button');
-		roundButton.classList.add('scores__round');
-		roundButton.innerHTML = `Round - ${matchday} <i class="fa-solid fa-chevron-down rotate"></i>`;
-		scoresContainer.appendChild(roundButton);
-  
-		scoresContainers.push(scoresContainer);
-	  }
+	const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex]
+	const scores = document.getElementById(sectionID).querySelector('.scores')
+	const getResults = league.matches
+	console.log(getResults)
+	let currentMatchday = null
+	const scoresContainers = []
+	const currentDate = new Date()
 
-	  
-  const matchStart = match.utcDate.replace('T', ' ').replace('Z', '')
-	  const matchContent = document.createElement('div');
-	  matchContent.classList.add('scores__score');
+	getResults.forEach(match => {
+		const matchday = match.matchday
+		const matchDate = new Date(match.utcDate)
 
+		if (matchDate > currentDate) {
+			return
+		}
 
+		if (currentMatchday !== matchday) {
+			currentMatchday = matchday
 
-	  matchContent.innerHTML = `
-		${matchStart} <span><img src="${match.homeTeam.crest}" alt="${match.homeTeam.name}">${match.homeTeam.shortName} ${match.score.fullTime.home} : ${match.score.fullTime.away} <img src="${match.awayTeam.crest}" alt="${match.awayTeam.name}">${match.awayTeam.shortName}</span>`;
-	  scoresContainers[scoresContainers.length - 1].appendChild(matchContent);
-	});
-  
-	
+			const scoresContainer = document.createElement('div')
+			scoresContainer.classList.add('scores__container')
+
+			const roundButton = document.createElement('button')
+			roundButton.classList.add('scores__round')
+			roundButton.innerHTML = `Round - ${matchday} <i class="fa-solid fa-chevron-down rotate"></i>`
+			scoresContainer.appendChild(roundButton)
+
+			scoresContainers.push(scoresContainer)
+		}
+
+		const matchStart = match.utcDate.replace('T', ' ').replace('Z', '')
+		const matchContent = document.createElement('div')
+		matchContent.classList.add('scores__score')
+
+		matchContent.innerHTML = `
+		<span class="scores__match-date">${matchStart}</span>
+    <span class="scores__hometeam"><img src="${match.homeTeam.crest}" alt="${match.homeTeam.name}"> ${match.homeTeam.shortName}</span> 
+	<span class="scores__fulltime-score">${match.score.fullTime.home} : ${match.score.fullTime.away}</span>
+    <span class="scores__awayteam"><img src="${match.awayTeam.crest}" alt="${match.awayTeam.name}"> ${match.awayTeam.shortName}</span>`
+		scoresContainers[scoresContainers.length - 1].appendChild(matchContent)
+	})
+
 	for (let i = scoresContainers.length - 1; i >= 0; i--) {
-	  scores.appendChild(scoresContainers[i]);
+		scores.appendChild(scoresContainers[i])
+
+		const lastScoresContainer = scoresContainers[scoresContainers.length - 1]
+
+		if (lastScoresContainer) {
+			lastScoresContainer.querySelectorAll('.scores__score').forEach(score => {
+				score.classList.add('scores__score--active')
+			})
+		}
 	}
-  }
-
-
-  
-  
-  
-  
-  
-  
+}
