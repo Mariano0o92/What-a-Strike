@@ -14,6 +14,7 @@ const sections = document.querySelectorAll('.main')
 const tables = document.querySelectorAll('.standings')
 const scoresSection = document.querySelectorAll('.scores')
 const scoresRound = document.querySelectorAll('.scores__round')
+const footerYear = document.querySelector('.footer-year')
 
 function setActiveSectionFromHash() {
 	const hash = window.location.hash.substring(1)
@@ -28,18 +29,6 @@ function setActiveSectionFromHash() {
 window.addEventListener('hashchange', setActiveSectionFromHash)
 window.addEventListener('load', setActiveSectionFromHash)
 
-// HERO IMAGE
-
-// const hideHero = () => {
-// 	heroImg.classList.add('hide')
-// }
-
-// const heroDisplayNone = () => {
-// 	heroImg.style.display = 'none'
-// }
-
-// setTimeout(hideHero, 5000)
-// setTimeout(heroDisplayNone, 5800)
 
 // NAVIGATION MOBILE
 
@@ -374,3 +363,12 @@ const createResults = (league, pageIndex) => {
 	  arrow[0].classList.add('rotate')
 	}
   };
+
+//   FOOTER
+
+const handleCurrentYear = () => {
+	const year = new Date().getFullYear()
+	footerYear.innerText = year
+}
+
+handleCurrentYear()
