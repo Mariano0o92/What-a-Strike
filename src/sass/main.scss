@@ -619,6 +619,13 @@ footer::after {
 	}
 
 	.main {
+
+		height: 84vh;
+
+		&__img {
+			height: 84vh;
+		}
+
 		.standings {
 			font-size: 1.3rem;
 		}
@@ -704,7 +711,7 @@ footer::after {
 			padding-bottom: 0.5rem;
 			padding-top: 0.5rem;
 			font-size: 1.8rem;
-			background-size: 15%;
+			background-size: 12%;
 			background-position: left 1rem bottom 0.6rem;
 		}
 
@@ -730,7 +737,11 @@ footer::after {
 	}
 
 	footer {
-		font-size: 1.4rem;
+		font-size: 1rem;
+	}
+
+	footer::after {
+		font-size: 1rem;
 	}
 }
 @media (max-height: 370px) {
