@@ -310,7 +310,6 @@ const createResults = (league, pageIndex) => {
 	const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
 	const scores = document.getElementById(sectionID).querySelector('.scores');
 	const getResults = league.matches;
-	console.log(getResults);
 	const currentDate = new Date();
 	const matchdayMap = new Map();
   
