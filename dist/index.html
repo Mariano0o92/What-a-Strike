@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Mariusz Niedzielski">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>What-a-Strike</title>
+    <link rel="icon" href="/dist/img/ball-favicon.png" type="image/svg">
+<link rel="stylesheet" href="/dist/css/hamburger-min.css">
+<link rel="stylesheet" href="/dist/css/main-min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/1daff9524d.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <nav class="nav">
+
+  <a href="#english" class="nav__link nav__link--active">English PL</a>
+  <a href="#spanish" class="nav__link" >La Liga</a>
+  <a href="#german" class="nav__link">Bundesliga</a>
+  <a href="#italian" class="nav__link">Serie A</a>
+  <a href="#french" class="nav__link">Ligue 1</a>
+  
+  
+  <div class="nav__results nav__results--active"><a href="#english">Results</a></div>
+  <div class="nav__table"><a href="#english-table">Standings</a></div>
+</nav>
+
+<nav class="nav-mobile">
+
+  <button class="hamburger hamburger--collapse" type="button">
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+
+  <div class="nav-mobile__title">
+    <h2><i class="fa-regular fa-star-half"></i>what-a-strike<i class="fa-regular fa-star-half fa-flip-horizontal"></i>
+    </h2>
+  </div>
+
+  <div class="nav-mobile__links">
+
+    <a href="#english" class="nav-mobile__link nav-mobile__link--active">Premier League</a>
+    <a href="#spanish" class="nav-mobile__link">La Liga</a>
+    <a href="#german" class="nav-mobile__link">Bundesliga</a>
+    <a href="#italian" class="nav-mobile__link">Serie A</a>
+    <a href="#french" class="nav-mobile__link">Ligue 1</a>
+
+  </div>
+<div class="nav-mobile__bottom-container">
+  <div class="nav-mobile__results nav-mobile__results--active"><a href="#english">Results</a></div>
+  <div class="nav-mobile__table"><a href="#english-table">Standings</a></div>
+
+</div>
+
+
+</nav>
+
+
+    <section id="english" class="main main__active">
+    <div class="main__img"></div>
+
+    <img class="main__logo-img" src="/dist/img/english.png" alt="English Premier League Logo">
+
+
+    <div class="scores">
+        <!-- <div class="scores__container">
+
+           <button class="scores__round">Round - 1 <i class="fa-solid fa-chevron-down rotate"></i></button>
+
+            <div class="scores__score">
+
+                <span class="scores__match-date">12.04.2023 18:00</span>
+                <span class="scores__hometeam"><img src="${match.homeTeam.crest}" alt=""> Wolves</span> 
+                <span class="scores__fulltime-score">0 : 0</span>
+                <span class="scores__awayteam"><img src="${match.awayTeam.crest}" alt=""> ManU</span>
+
+            </div> -->
+
+
+        </div>
+    </div>
+
+
+
+</section>
+<section id="english-table" class="main">
+
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/english.png" alt="English Premier League Logo">
+    </div>
+
+    <table class="standings"></table>
+</section>
+<section id="spanish" class="main">
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/spanish.png" alt="Spanish La Liga Logo">
+    </div>
+
+    <div class="scores"></div>
+
+</section>
+
+<section id="spanish-table" class="main">
+
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/spanish.png" alt="Spanish La Liga League Logo">
+    </div>
+
+    <table class="standings"></table>
+</section>
+
+<section id="german" class="main">
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/german.png" alt="German Bundesliga Logo">
+    </div>
+
+    <div class="scores"></div>
+
+</section>
+
+<section id="german-table" class="main">
+
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/german.png" alt="German Bundesliga Logo">
+    </div>
+
+    <table class="standings"></table>
+</section>
+
+<section id="italian" class="main">
+
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/italian.jpg" alt="Italian Serie A Logo">
+    </div>
+
+    <div class="scores"></div>
+
+</section>
+
+<section id="italian-table" class="main">
+
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/italian.jpg" alt="Italian Serie A Logo">
+    </div>
+
+    <table class="standings"></table>
+</section>
+
+<section id="french" class="main">
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/french.jpg" alt="French Ligue 1 Logo">
+    </div>
+
+    <div class="scores"></div>
+
+</section>
+
+<section id="french-table" class="main">
+
+    <div class="main__img"></div>
+
+    <div class="main__logo">
+        <img class="main__logo-img" src="/dist/img/french.jpg" alt="French Ligue 1 Logo">
+    </div>
+
+    <table class="standings"></table>
+</section>
+    <footer>
+    <p>&copy; <span class="footer-year"></span> | <i class="fa-regular fa-star-half"></i>what-a-strike<i class="fa-regular fa-star-half fa-flip-horizontal"></i></p>
+</footer>
+
+
+    <script src="/dist/js/script-min.js"></script>
+</body>
+</html>

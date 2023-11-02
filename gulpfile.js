@@ -14,16 +14,6 @@ const kit = require('gulp-kit');
 const browserSync = require('browser-sync').create()
 const reload = browserSync.reload
 
-var gulp  = require('gulp');
-var deploy = require('gulp-gh-pages');
-
-/**
- * Push build to gh-pages
- */
-gulp.task('deploy', function () {
-  return gulp.src("./dist/**/*")
-    .pipe(deploy())
-});
 
 const paths = {
 	html: './html/**/*.kit',
@@ -68,7 +58,7 @@ function convertImages(done) {
 	done()
 }
 function handleKits(done) {
-	src(paths.html).pipe(kit()).pipe(dest('./'))
+	src(paths.html).pipe(kit()).pipe(dest('./dist'))
 	done()
 }
 
