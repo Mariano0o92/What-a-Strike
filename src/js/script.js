@@ -221,8 +221,9 @@ leagues.forEach((id, index) => {
 function getStandings(id, pageIndex) {
 	const URL_API = 'https://api.football-data.org/v4/competitions/'
 	const leagueID = `${id}`
+	const proxyUrl = 'https://corsproxy.io/?'
 
-	fetch(URL_API + leagueID + '/standings', {
+	fetch(proxyUrl + URL_API + leagueID + '/standings', {
 		method: 'GET',
 		headers: {
 			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
@@ -241,8 +242,9 @@ function getStandings(id, pageIndex) {
 function getResults(id, pageIndex) {
 	const URL_API = 'https://api.football-data.org/v4/competitions/'
 	const leagueID = `${id}`
+	const proxyUrl = 'https://corsproxy.io/?'
 
-	fetch(URL_API + leagueID + '/matches', {
+	fetch(proxyUrl + URL_API + leagueID + '/matches', {
 		method: 'GET',
 		headers: {
 			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
