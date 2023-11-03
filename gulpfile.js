@@ -58,7 +58,7 @@ function convertImages(done) {
 	done()
 }
 function handleKits(done) {
-	src(paths.html).pipe(kit()).pipe(dest('./dist'))
+	src(paths.html).pipe(kit()).pipe(dest('./'))
 	done()
 }
 
@@ -86,5 +86,5 @@ watch(paths.img, convertImages).on("change", reload);
 
 const mainFunctions = parallel(handleKits, sassCompiler, javaScript, convertImages)
 exports.cleanStuff = cleanStuff
-// exports.default = series(mainFunctions, startBrowserSync, watchForChanges)
+exports.default = series(mainFunctions, startBrowserSync, watchForChanges)
 exports.build = mainFunctions
