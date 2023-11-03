@@ -86,4 +86,5 @@ watch(paths.img, convertImages).on("change", reload);
 
 const mainFunctions = parallel(handleKits, sassCompiler, javaScript, convertImages)
 exports.cleanStuff = cleanStuff
-exports.default = series(mainFunctions, startBrowserSync, watchForChanges)
+// exports.default = series(mainFunctions, startBrowserSync, watchForChanges)
+exports.build = mainFunctions
