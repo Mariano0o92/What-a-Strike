@@ -254,7 +254,6 @@ function getResults(id, pageIndex) {
 		.then(res => res.json())
 		.then(data => {
 			createResults(data, pageIndex)
-			console.log(data);
 		})
 		.catch(err => {
 			console.log(err)
