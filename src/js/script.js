@@ -254,6 +254,7 @@ function getResults(id, pageIndex) {
 		.then(res => res.json())
 		.then(data => {
 			createResults(data, pageIndex)
+			console.log(data);
 		})
 		.catch(err => {
 			console.log(err)
@@ -333,7 +334,18 @@ const createResults = (league, pageIndex) => {
 		  matchdayMap.set(matchday, scoresContainer);
 		}
   
-		const matchStart = match.utcDate.replace('T', ' ').replace('Z', '').substring(0, 16);
+		// const matchStart = match.utcDate.replace('T', ' ').replace('Z', '').substring(0, 16);
+		const matchDate = new Date(match.utcDate);
+		const matchStart = new Intl.DateTimeFormat('pl-PL', {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+			hour: 'numeric',
+			minute: 'numeric',
+			hour12: false,
+		  }).format(matchDate);
+
+
 		const matchContent = document.createElement('div');
 		matchContent.classList.add('scores__score');
   
