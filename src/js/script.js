@@ -226,7 +226,7 @@ function getStandings(id, pageIndex) {
 	fetch(proxyUrl + URL_API + leagueID + '/standings', {
 		method: 'GET',
 		headers: {
-			'X-Auth-Token': window.API_KEY,
+			'X-Auth-Token': API_KEY,
 			'Accept-Encoding': '',
 		},
 	})
