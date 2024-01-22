@@ -226,7 +226,7 @@ function getStandings(id, pageIndex) {
 	fetch(proxyUrl + URL_API + leagueID + '/standings', {
 		method: 'GET',
 		headers: {
-			'X-Auth-Token': window.API_KEY,
+			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
 			'Accept-Encoding': '',
 		},
 	})
@@ -247,7 +247,7 @@ function getResults(id, pageIndex) {
 	fetch(proxyUrl + URL_API + leagueID + '/matches', {
 		method: 'GET',
 		headers: {
-			'X-Auth-Token': window.API_KEY,
+			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
 			'Accept-Encoding': '',
 		},
 	})
