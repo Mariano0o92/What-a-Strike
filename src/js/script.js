@@ -29,7 +29,6 @@ function setActiveSectionFromHash() {
 window.addEventListener('hashchange', setActiveSectionFromHash)
 window.addEventListener('load', setActiveSectionFromHash)
 
-
 // NAVIGATION MOBILE
 
 hamburger.addEventListener('click', () => {
@@ -202,7 +201,7 @@ function showScores(e) {
 		siblings.forEach(sibling => {
 			sibling.classList.toggle('scores__score--active')
 		})
-		
+
 		arrowDown.classList.toggle('rotate')
 	}
 }
@@ -221,12 +220,14 @@ leagues.forEach((id, index) => {
 function getStandings(id, pageIndex) {
 	const URL_API = 'https://api.football-data.org/v4/competitions/'
 	const leagueID = `${id}`
-	const proxyUrl = 'https://thingproxy.freeboard.io/fetch/'
+	const proxyUrl = 'https://proxy.cors.sh/'
 
 	fetch(proxyUrl + URL_API + leagueID + '/standings', {
 		method: 'GET',
+
 		headers: {
 			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
+			'x-cors-api-key': 'temp_a1debe2d58c9cbb6f3ea26d9dc21e86a',
 			'Accept-Encoding': '',
 		},
 	})
@@ -241,13 +242,15 @@ function getStandings(id, pageIndex) {
 
 function getResults(id, pageIndex) {
 	const URL_API = 'https://api.football-data.org/v4/competitions/'
+
 	const leagueID = `${id}`
-	const proxyUrl = 'https://thingproxy.freeboard.io/fetch/'
+	const proxyUrl = 'https://proxy.cors.sh/'
 
 	fetch(proxyUrl + URL_API + leagueID + '/matches', {
 		method: 'GET',
 		headers: {
 			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
+			'x-cors-api-key': 'temp_a1debe2d58c9cbb6f3ea26d9dc21e86a',
 			'Accept-Encoding': '',
 		},
 	})
@@ -309,72 +312,72 @@ const createstandings = (league, pageIndex) => {
 }
 
 const createResults = (league, pageIndex) => {
-	const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex];
-	const scores = document.getElementById(sectionID).querySelector('.scores');
-	const getResults = league.matches;
-	const currentDate = new Date();
-	const matchdayMap = new Map();
-  
+	const sectionID = ['english', 'spanish', 'german', 'italian', 'french'][pageIndex]
+	const scores = document.getElementById(sectionID).querySelector('.scores')
+	const getResults = league.matches
+	const currentDate = new Date()
+	const matchdayMap = new Map()
+
 	getResults
-	  .filter((match) => new Date(match.utcDate) <= currentDate)
-	  .forEach((match) => {
-		const matchday = match.matchday;
-	
-  
-		if (!matchdayMap.has(matchday)) {
-		  const scoresContainer = document.createElement('div');
-		  scoresContainer.classList.add('scores__container');
-  
-		  const roundButton = document.createElement('button');
-		  roundButton.classList.add('scores__round');
-		  roundButton.innerHTML = `Round - ${matchday} <i class="fa-solid fa-chevron-down"></i>`;
-		  scoresContainer.appendChild(roundButton);
-  
-		  matchdayMap.set(matchday, scoresContainer);
-		}
-  
-		// const matchStart = match.utcDate.replace('T', ' ').replace('Z', '').substring(0, 16);
-		const matchDate = new Date(match.utcDate);
-		const matchStart = new Intl.DateTimeFormat('pl-PL', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-			hour: 'numeric',
-			minute: 'numeric',
-			hour12: false,
-		  }).format(matchDate);
+		.filter(match => new Date(match.utcDate) <= currentDate)
+		.forEach(match => {
+			const matchday = match.matchday
 
+			if (!matchdayMap.has(matchday)) {
+				const scoresContainer = document.createElement('div')
+				scoresContainer.classList.add('scores__container')
 
-		const matchContent = document.createElement('div');
-		matchContent.classList.add('scores__score');
-  
-		matchContent.innerHTML = `
+				const roundButton = document.createElement('button')
+				roundButton.classList.add('scores__round')
+				roundButton.innerHTML = `Round - ${matchday} <i class="fa-solid fa-chevron-down"></i>`
+				scoresContainer.appendChild(roundButton)
+
+				matchdayMap.set(matchday, scoresContainer)
+			}
+
+			// const matchStart = match.utcDate.replace('T', ' ').replace('Z', '').substring(0, 16);
+			const matchDate = new Date(match.utcDate)
+			const matchStart = new Intl.DateTimeFormat('pl-PL', {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric',
+				hour12: false,
+			}).format(matchDate)
+
+			const matchContent = document.createElement('div')
+			matchContent.classList.add('scores__score')
+
+			matchContent.innerHTML = `
 		  <span class="scores__match-date">${matchStart}</span>
 		  <span class="scores__hometeam"><img src="${match.homeTeam.crest}" alt="${match.homeTeam.name}"> ${match.homeTeam.shortName}</span> 
 		  <span class="scores__fulltime-score">${match.score.fullTime.home} : ${match.score.fullTime.away}</span>
-		  <span class="scores__awayteam"><img src="${match.awayTeam.crest}" alt="${match.awayTeam.name}"> ${match.awayTeam.shortName}</span>`;
-  
-		matchdayMap.get(matchday).appendChild(matchContent);
-	  });
-  
-	const sortedContainers = Array.from(matchdayMap.values()).sort(
-	  (a, b) => parseInt(b.querySelector('.scores__round').textContent.split(' - ')[1]) - parseInt(a.querySelector('.scores__round').textContent.split(' - ')[1])
-	);
+		  <span class="scores__awayteam"><img src="${match.awayTeam.crest}" alt="${match.awayTeam.name}"> ${match.awayTeam.shortName}</span>`
 
-	sortedContainers.forEach((container) => {
-	  scores.appendChild(container);
-	});
-  
+			matchdayMap.get(matchday).appendChild(matchContent)
+		})
+
+	const sortedContainers = Array.from(matchdayMap.values()).sort(
+		(a, b) =>
+			parseInt(b.querySelector('.scores__round').textContent.split(' - ')[1]) -
+			parseInt(a.querySelector('.scores__round').textContent.split(' - ')[1])
+	)
+
+	sortedContainers.forEach(container => {
+		scores.appendChild(container)
+	})
+
 	// Add .scores__score--active to the scores in the last container
 	if (sortedContainers.length > 0) {
-	  sortedContainers[0].querySelectorAll('.scores__score').forEach((score) => {
-		score.classList.add('scores__score--active');
-	  });
+		sortedContainers[0].querySelectorAll('.scores__score').forEach(score => {
+			score.classList.add('scores__score--active')
+		})
 
-	  const arrow = sortedContainers[0].querySelector('.scores__round').children
-	  arrow[0].classList.add('rotate')
+		const arrow = sortedContainers[0].querySelector('.scores__round').children
+		arrow[0].classList.add('rotate')
 	}
-  };
+}
 
 //   FOOTER
 
