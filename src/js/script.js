@@ -229,6 +229,8 @@ function getStandings(id, pageIndex) {
 			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
 			'x-cors-api-key': 'temp_a1debe2d58c9cbb6f3ea26d9dc21e86a',
 			'Accept-Encoding': '',
+			'Access-Control-Allow-Origin': '*',
+			'Origin': 'https://what-a-strike.netlify.app'
 		},
 	})
 		.then(res => res.json())
@@ -252,6 +254,8 @@ function getResults(id, pageIndex) {
 			'X-Auth-Token': '268640ec6a2640e7991cee35b5c601b6',
 			'x-cors-api-key': 'temp_a1debe2d58c9cbb6f3ea26d9dc21e86a',
 			'Accept-Encoding': '',
+			'Access-Control-Allow-Origin': '*',
+			'Origin': 'https://what-a-strike.netlify.app'
 		},
 	})
 		.then(res => res.json())
